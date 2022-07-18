@@ -2,45 +2,44 @@ import logo from './logo.svg';
 import './App.css';
 import First from './First';
 import Second from './Second';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import User from './User';
 
 function App() {
 
-  const [name,setName] = useState('');
-  const [name2,setName2] = useState('');
+ 
+  const [users, setUsers] = useState([]);
 
-  const handleChange = (e) => {
-    setName(e.target.value);
-  }
+  useEffect(() => {
+    
+    axios.get('http://localhost:3000/users').then(res => {
+      setUsers(res.data);
+    }).catch(err => {
+      console.log(err);
+    });
 
-  const handleChange2 = (e) => {
-    setName2(e.target.value);
-  }
 
+  }, []);
+
+ 
 
 
 
   return (
     <>
-   <div> 
-    <First name={name2} handleChange={handleChange} />
-   </div>
-   <div> 
-    <First name={name2} handleChange={handleChange} />
-   </div>
-   <div> 
-    <First name={name2} handleChange={handleChange} />
-   </div>
-   <div>
-<Second name={name} handleChange={handleChange2}/>
-   </div>
-   <div>
-<Second name={name} handleChange={handleChange2}/>
-   </div>
-   <div>
-<Second name={name} handleChange={handleChange2}/>
-   </div>
+  <div>
+    {
+
+   
+      users.map(user => {
+        return <User key={user.phone} prefix={user.prefix} firstName={user.firstName} 
+        lastName={user.lastName} suffix={user.suffix}
+        jobArea={user.jobArea} jobTitle={user.jobTitle} 
+        phone={user.phone} />
+      } )
+    }
+  </div>
     </>
   );
 }
