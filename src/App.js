@@ -5,6 +5,7 @@ import Second from './Second';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import User from './User';
+import Grid from './Grid';
 
 function App() {
 
@@ -28,7 +29,8 @@ function App() {
 
   return (
     <>
-  <div>
+    <Grid/>
+  {/* <div>
     {
 
    
@@ -39,7 +41,7 @@ function App() {
         phone={user.phone} />
       } )
     }
-  </div>
+  </div> */}
     </>
   );
 }
